@@ -139,9 +139,13 @@ export const ToastInner = (props: ToastContextProps) => {
     <View
       onLayout={(event) => {
         if (!layout) {
+          /**
+           * When layout is set, we can now animate using these values
+           */
           setLayout(event.nativeEvent.layout);
         }
       }}
+      testID="ToastWrap"
     >
       {item.dismissible
         ? (
@@ -198,7 +202,6 @@ export const ToastInner = (props: ToastContextProps) => {
             }],
           },
         ]}
-        testID='CONTAINER'
       >
         <ToastWrap />
       </Animated.View>

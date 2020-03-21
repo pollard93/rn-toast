@@ -1,9 +1,9 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
 
 
 export interface ToastProps {
   duration: number;
-  component: JSX.Element;
+  component: ReactNode;
   dismissible?: boolean;
 }
 

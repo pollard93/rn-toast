@@ -31,7 +31,7 @@ const toastReducer = (queue: ToastProps[], action: ToastReducerAction) => {
 
 export interface ToastProviderProps {
   position: 'top' | 'bottom'; // default bottom
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 
@@ -57,7 +57,7 @@ const ToastProvider = (props: ToastProviderProps) => {
             type: 'removeFromQueue',
           });
         },
-        position: props.position,
+        position: props.position || 'bottom',
         timeoutId: null,
       }}
     >
