@@ -1,4 +1,7 @@
-import { Hello } from './components/Hello';
+import { useToast } from './components/ToastContext/ToastContext';
+import ToastProvider from './components/ToastProvider/ToastProvider';
 
-export * as Test from './styles/index';
-export default Hello;
+export {
+  useToast,
+  ToastProvider,
+};
