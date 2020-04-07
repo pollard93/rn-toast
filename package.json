@@ -1,6 +1,6 @@
 {
   "name": "mbp-components-rn-toast",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Boilerplate to quickstart React Native component development",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
