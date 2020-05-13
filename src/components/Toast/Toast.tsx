@@ -56,6 +56,7 @@ export const ToastInner = (props: ToastContextProps) => {
         velocity: 3,
         tension: 2,
         friction: 8,
+        useNativeDriver: true,
       },
     ).start(() => {
       /**
@@ -94,6 +95,7 @@ export const ToastInner = (props: ToastContextProps) => {
         velocity: 3,
         tension: 2,
         friction: 8,
+        useNativeDriver: true,
       },
     ).start(() => {
       if (item.duration > 0) {
