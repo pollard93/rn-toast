@@ -19,6 +19,11 @@ import MockDate from 'mockdate';
 const mockImpl = new MockAsyncStorage();
 jest.mock('AsyncStorage', () => mockImpl);
 jest.mock('NativeAnimatedHelper');
+jest.mock('react-native-safe-area', () => ({
+  getSafeAreaInsetsForRootView: jest.fn().mockImplementation(() => Promise.resolve(({
+    safeAreaInsets: ({ top: 0, bottom: 0, left: 0, right: 0 }),
+  }))),
+}));
 
 /**
  * Set up DOM in node.js environment for Enzyme to mount to

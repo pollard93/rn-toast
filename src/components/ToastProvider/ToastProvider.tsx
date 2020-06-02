@@ -1,4 +1,5 @@
-import React, { useReducer, FC } from 'react';
+import React, { useEffect, useState, useReducer, FC } from 'react';
+import SafeArea, { SafeAreaInsets } from 'react-native-safe-area';
 import { Toast } from '../Toast/Toast';
 import { ToastProps, ToastContext } from '../ToastContext/ToastContext';
 
@@ -40,6 +41,24 @@ export interface ToastProviderProps {
  */
 const ToastProvider: FC<ToastProviderProps> = (props) => {
   const [queue, dispatch] = useReducer(toastReducer, []);
+  const [safeAreaInsets, setSafeAreaInsets] = useState<SafeAreaInsets>(null);
+
+
+  /**
+   * Get safe area insets
+   */
+  useEffect(() => {
+    SafeArea.getSafeAreaInsetsForRootView()
+      .then((res) => setSafeAreaInsets(res.safeAreaInsets))
+      .catch(() => setSafeAreaInsets({ top: 0, left: 0, bottom: 0, right: 0 }));
+  }, []);
+
+
+  /**
+   * Only proceed when safearea view has been set
+   */
+  if (!safeAreaInsets) return null;
+
 
   return (
     <ToastContext.Provider
@@ -58,6 +77,7 @@ const ToastProvider: FC<ToastProviderProps> = (props) => {
         },
         position: props.position || 'bottom',
         timeoutId: null,
+        safeAreaInsets,
       }}
     >
       {props.children}

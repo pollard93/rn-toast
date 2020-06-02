@@ -13,73 +13,95 @@ const TestComponent = (props: {position: 'top' | 'bottom'}) => {
   const context = useToast();
 
   return (
-    <View style={{
-      justifyContent: 'center',
-      flex: 1,
-    }}>
-      <Button
-        title={'Push toast'}
-        onPress={() => {
-          /**
-           * Push toast with context
-           */
-          context.push({
-            duration: 1000,
-            component: (
-              <View style={{ backgroundColor: 'green' }}>
-                {props.position === 'top' && <SafeAreaView />}
-                <Text>TOAST {context.queue.length}</Text>
-                {props.position === 'bottom' && <SafeAreaView />}
-              </View>
-            ),
-            dismissible: false,
-          });
+    <SafeAreaView
+      style={{
+        justifyContent: 'center',
+        flex: 1,
+        backgroundColor: 'red',
+      }}
+    >
+      <View
+        style={{
+          justifyContent: 'center',
+          flex: 1,
+          backgroundColor: 'green',
         }}
-      />
-      <Button
-        title={'Push dismissable toast'}
-        onPress={() => {
-          /**
-           * Push toast with context
-           */
-          context.push({
-            duration: 1000,
-            component: (
-              <View style={{ backgroundColor: 'green' }}>
-                {props.position === 'top' && <SafeAreaView />}
-                <Text>DISMISSABLE TOAST {context.queue.length}</Text>
-                {props.position === 'bottom' && <SafeAreaView />}
-              </View>
-            ),
-            dismissible: true,
-          });
-        }}
-      />
-      <Button
-        title={'Push only dismissable'}
-        onPress={() => {
-          /**
-           * Push toast with context
-           */
-          context.push({
-            duration: 0,
-            component: (
-              <View style={{ backgroundColor: 'green' }}>
-                {props.position === 'top' && <SafeAreaView />}
-                <Text>ONLY DISMISSABLE TOAST {context.queue.length}</Text>
-                {props.position === 'bottom' && <SafeAreaView />}
-              </View>
-            ),
-            dismissible: true,
-          });
-        }}
-      />
-    </View>
+      >
+        <Button
+          title={'Push toast'}
+          onPress={() => {
+            /**
+             * Push toast with context
+             */
+            context.push({
+              duration: 1000,
+              component: (safeAreaInsets) => (
+                <View
+                  style={[
+                    { backgroundColor: 'yellow' },
+                    props.position === 'top' && { paddingTop: safeAreaInsets.top },
+                    props.position === 'bottom' && { paddingBottom: safeAreaInsets.bottom },
+                  ]}
+                >
+                  <Text>TOAST {context.queue.length}</Text>
+                </View>
+              ),
+              dismissible: false,
+            });
+          }}
+        />
+        <Button
+          title={'Push dismissable toast'}
+          onPress={() => {
+            /**
+             * Push toast with context
+             */
+            context.push({
+              duration: 1000,
+              component: (safeAreaInsets) => (
+                <View
+                  style={[
+                    { backgroundColor: 'yellow' },
+                    props.position === 'top' && { paddingTop: safeAreaInsets.top },
+                    props.position === 'bottom' && { paddingBottom: safeAreaInsets.bottom },
+                  ]}
+                >
+                  <Text>DISMISSABLE TOAST {context.queue.length}</Text>
+                </View>
+              ),
+              dismissible: true,
+            });
+          }}
+        />
+        <Button
+          title={'Push only dismissable'}
+          onPress={() => {
+            /**
+             * Push toast with context
+             */
+            context.push({
+              duration: 0,
+              component: (safeAreaInsets) => (
+                <View
+                  style={[
+                    { backgroundColor: 'yellow' },
+                    props.position === 'top' && { paddingTop: safeAreaInsets.top },
+                    props.position === 'bottom' && { paddingBottom: safeAreaInsets.bottom },
+                  ]}
+                >
+                  <Text>ONLY DISMISSABLE TOAST {context.queue.length}</Text>
+                </View>
+              ),
+              dismissible: true,
+            });
+          }}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
 storiesOf('Toast', module)
-  // .addDecorator((getStory) => <View style={{ backgroundColor: 'red', flex: 1, width: '100%' }}>{getStory()}</View>)
   .add('Toast - bottom', () => (
     <ToastProvider position='bottom'>
       <TestComponent position='bottom' />

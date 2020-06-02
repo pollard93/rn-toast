@@ -1,6 +1,6 @@
 {
   "name": "mbp-components-rn-toast",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Boilerplate to quickstart React Native component development",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -50,6 +50,7 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-native": "0.60.5",
+    "react-native-safe-area": "^0.5.1",
     "react-test-renderer": "^16.13.0",
     "rimraf": "^3.0.2",
     "scriptlint": "^2.0.4",
@@ -63,7 +64,8 @@
   },
   "peerDependencies": {
     "react": ">= 16.8.6",
-    "react-native": ">= 0.60.5"
+    "react-native": ">= 0.60.5",
+    "react-native-safe-area": ">= 0.5.1"
   },
   "jest": {
     "preset": "react-native",
