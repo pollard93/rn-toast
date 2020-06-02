@@ -52,5 +52,6 @@ module.exports = {
     react: 'react',
     reactDOM: 'react-dom',
     'react-native': 'react-native',
+    'react-native-safe-area': 'react-native-safe-area',
   },
 };

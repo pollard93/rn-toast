@@ -162,11 +162,11 @@ export const ToastInner: FC<ToastContextProps> = (props) => {
               }
             }}
           >
-            {item.component}
+            {item.component(props.safeAreaInsets)}
           </TouchableWithoutFeedback>
         )
         : (
-          item.component
+          item.component(props.safeAreaInsets)
         )
       }
     </View>

@@ -1,9 +1,10 @@
 import { createContext, useContext, ReactNode } from 'react';
+import { SafeAreaInsets } from 'react-native-safe-area';
 
 
 export interface ToastProps {
   duration: number;
-  component: ReactNode;
+  component: (safeAreaInsets: SafeAreaInsets) => ReactNode;
   dismissible?: boolean;
 }
 
@@ -14,6 +15,7 @@ export interface ToastContextProps {
   destroy: () => void; // Destroys the first element in the queue
   position: 'top' | 'bottom'; // default bottom
   timeoutId: any;
+  safeAreaInsets: SafeAreaInsets;
 }
 
 
