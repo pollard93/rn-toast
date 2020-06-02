@@ -1,5 +1,5 @@
-import React, { useMemo, useEffect, useState } from 'react';
-import { Animated, TouchableOpacity, View, SafeAreaView } from 'react-native';
+import React, { useMemo, useEffect, useState, FC } from 'react';
+import { Animated, TouchableWithoutFeedback, View } from 'react-native';
 import styles from './Toast.styles';
 import { useToast, ToastContextProps } from '../ToastContext/ToastContext';
 
@@ -21,7 +21,7 @@ export const Toast = () => {
  * Toast inner
  * Handles queue and animation
  */
-export const ToastInner = (props: ToastContextProps) => {
+export const ToastInner: FC<ToastContextProps> = (props) => {
   // If there's no queue, then return null here
   if (props.queue.length === 0) return null;
 
@@ -54,7 +54,6 @@ export const ToastInner = (props: ToastContextProps) => {
       {
         toValue: 0,
         velocity: 3,
-        tension: 2,
         friction: 8,
         useNativeDriver: true,
       },
@@ -151,7 +150,7 @@ export const ToastInner = (props: ToastContextProps) => {
     >
       {item.dismissible
         ? (
-          <TouchableOpacity
+          <TouchableWithoutFeedback
             onPress={() => {
               /**
                * Only let the user dismiss:
@@ -164,7 +163,7 @@ export const ToastInner = (props: ToastContextProps) => {
             }}
           >
             {item.component}
-          </TouchableOpacity>
+          </TouchableWithoutFeedback>
         )
         : (
           item.component
@@ -183,7 +182,7 @@ export const ToastInner = (props: ToastContextProps) => {
    * Animates transform.translateY when layout is available
    */
   return (
-    <SafeAreaView
+    <View
       style={[
         styles.wrap,
         styles[props.position],
@@ -207,6 +206,6 @@ export const ToastInner = (props: ToastContextProps) => {
       >
         <ToastWrap />
       </Animated.View>
-    </SafeAreaView>
+    </View>
   );
 };
