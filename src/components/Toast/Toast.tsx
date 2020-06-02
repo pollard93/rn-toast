@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, FC } from 'react';
-import { Animated, TouchableWithoutFeedback, View } from 'react-native';
+import { Animated, TouchableOpacity, View } from 'react-native';
 import styles from './Toast.styles';
 import { useToast, ToastContextProps } from '../ToastContext/ToastContext';
 
@@ -150,7 +150,8 @@ export const ToastInner: FC<ToastContextProps> = (props) => {
     >
       {item.dismissible
         ? (
-          <TouchableWithoutFeedback
+          <TouchableOpacity
+            activeOpacity={1}
             onPress={() => {
               /**
                * Only let the user dismiss:
@@ -162,11 +163,11 @@ export const ToastInner: FC<ToastContextProps> = (props) => {
               }
             }}
           >
-            {item.component(props.safeAreaInsets)}
-          </TouchableWithoutFeedback>
+            {item.component}
+          </TouchableOpacity>
         )
         : (
-          item.component(props.safeAreaInsets)
+          item.component
         )
       }
     </View>

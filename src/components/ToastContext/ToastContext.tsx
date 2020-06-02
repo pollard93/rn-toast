@@ -4,7 +4,7 @@ import { SafeAreaInsets } from 'react-native-safe-area';
 
 export interface ToastProps {
   duration: number;
-  component: (safeAreaInsets: SafeAreaInsets) => ReactNode;
+  component: ReactNode;
   dismissible?: boolean;
 }
 
