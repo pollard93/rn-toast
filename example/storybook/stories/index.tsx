@@ -6,6 +6,27 @@ import { storiesOf } from '@storybook/react-native';
 import { useToast, ToastProvider } from 'mbp-components-rn-toast';
 import { View, Button, Text, SafeAreaView } from 'react-native';
 
+
+const TestToastComponent = (props: {position: 'top' | 'bottom', content: string}) => {
+  /**
+   * Get safe area insets
+   */
+  const { safeAreaInsets } = useToast();
+
+  return (
+    <View
+      style={[
+        { backgroundColor: 'yellow' },
+        props.position === 'top' && { paddingTop: safeAreaInsets.top },
+        props.position === 'bottom' && { paddingBottom: safeAreaInsets.bottom },
+      ]}
+    >
+      <Text>{props.content}</Text>
+    </View>
+  );
+};
+
+
 const TestComponent = (props: {position: 'top' | 'bottom'}) => {
   /**
    * Use toast context
@@ -35,16 +56,8 @@ const TestComponent = (props: {position: 'top' | 'bottom'}) => {
              */
             context.push({
               duration: 1000,
-              component: (safeAreaInsets) => (
-                <View
-                  style={[
-                    { backgroundColor: 'yellow' },
-                    props.position === 'top' && { paddingTop: safeAreaInsets.top },
-                    props.position === 'bottom' && { paddingBottom: safeAreaInsets.bottom },
-                  ]}
-                >
-                  <Text>TOAST {context.queue.length}</Text>
-                </View>
+              component: (
+                <TestToastComponent position={props.position} content={`"TOAST" ${context.queue.length}`} />
               ),
               dismissible: false,
             });
@@ -58,16 +71,8 @@ const TestComponent = (props: {position: 'top' | 'bottom'}) => {
              */
             context.push({
               duration: 1000,
-              component: (safeAreaInsets) => (
-                <View
-                  style={[
-                    { backgroundColor: 'yellow' },
-                    props.position === 'top' && { paddingTop: safeAreaInsets.top },
-                    props.position === 'bottom' && { paddingBottom: safeAreaInsets.bottom },
-                  ]}
-                >
-                  <Text>DISMISSABLE TOAST {context.queue.length}</Text>
-                </View>
+              component: (
+                <TestToastComponent position={props.position} content={`"DISMISSABLE TOAST" ${context.queue.length}`} />
               ),
               dismissible: true,
             });
@@ -81,16 +86,8 @@ const TestComponent = (props: {position: 'top' | 'bottom'}) => {
              */
             context.push({
               duration: 0,
-              component: (safeAreaInsets) => (
-                <View
-                  style={[
-                    { backgroundColor: 'yellow' },
-                    props.position === 'top' && { paddingTop: safeAreaInsets.top },
-                    props.position === 'bottom' && { paddingBottom: safeAreaInsets.bottom },
-                  ]}
-                >
-                  <Text>ONLY DISMISSABLE TOAST {context.queue.length}</Text>
-                </View>
+              component: (
+                <TestToastComponent position={props.position} content={`"ONLY DISMISSABLE TOAST" ${context.queue.length}`} />
               ),
               dismissible: true,
             });
@@ -100,6 +97,7 @@ const TestComponent = (props: {position: 'top' | 'bottom'}) => {
     </SafeAreaView>
   );
 };
+
 
 storiesOf('Toast', module)
   .add('Toast - bottom', () => (

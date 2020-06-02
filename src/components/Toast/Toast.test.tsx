@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { expect } from 'chai';
-import { TouchableWithoutFeedback, Text } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 import MockDate from 'mockdate';
 import ToastProvider from '../ToastProvider/ToastProvider';
 import { ToastInner } from './Toast';
@@ -45,7 +45,7 @@ describe('<Toast />', () => {
     // Push a toast and update
     wrapper.find(ToastInner).props().push({
       duration: 1,
-      component: () => (
+      component: (
         <Text>Toast Text</Text>
       ),
       dismissible: false,
@@ -56,7 +56,7 @@ describe('<Toast />', () => {
     expect(wrapper.find(ToastInner).props().queue).to.have.lengthOf(1);
 
     // Test render of non dismissible
-    expect(wrapper.find(TouchableWithoutFeedback)).to.not.have.length;
+    expect(wrapper.find(TouchableOpacity)).to.not.have.length;
     expect(wrapper.contains('Toast Text')).to.be.true;
   });
 
@@ -78,7 +78,7 @@ describe('<Toast />', () => {
     // Push a toast and update
     wrapper.find(ToastInner).props().push({
       duration: 1,
-      component: () => (
+      component: (
         <Text>Toast Text</Text>
       ),
       dismissible: true,
@@ -89,7 +89,7 @@ describe('<Toast />', () => {
     expect(wrapper.find(ToastInner).props().queue).to.have.lengthOf(1);
 
     // Test render of non dismissible
-    expect(wrapper.find(TouchableWithoutFeedback)).to.not.have;
+    expect(wrapper.find(TouchableOpacity)).to.not.have;
     expect(wrapper.contains('Toast Text')).to.be.true;
   });
 
@@ -104,21 +104,21 @@ describe('<Toast />', () => {
     // Push 3 toasts
     wrapper.find(ToastInner).props().push({
       duration: 1,
-      component: () => (
+      component: (
         <Text>Toast Text</Text>
       ),
       dismissible: false,
     });
     wrapper.find(ToastInner).props().push({
       duration: 1,
-      component: () => (
+      component: (
         <Text>Toast Text</Text>
       ),
       dismissible: false,
     });
     wrapper.find(ToastInner).props().push({
       duration: 1,
-      component: () => (
+      component: (
         <Text>Toast Text</Text>
       ),
       dismissible: false,
@@ -189,7 +189,7 @@ describe('<Toast />', () => {
     // Push a dismissible toast
     wrapper.find(ToastInner).props().push({
       duration: 0,
-      component: () => (
+      component: (
         <Text>Toast Text</Text>
       ),
       dismissible: true,
@@ -207,7 +207,7 @@ describe('<Toast />', () => {
     wrapper.update();
 
     // Try and simulate on press, this should not have any action
-    wrapper.find(TouchableWithoutFeedback).props().onPress({} as any);
+    wrapper.find(TouchableOpacity).props().onPress({} as any);
 
     // Wait for the animations to complete
     global.timeTravel(5000);
