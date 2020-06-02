@@ -4,9 +4,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { useToast, ToastProvider } from 'mbp-components-rn-toast';
-import { View, Button, Text } from 'react-native';
+import { View, Button, Text, SafeAreaView } from 'react-native';
 
-const TestComponent = () => {
+const TestComponent = (props: {position: 'top' | 'bottom'}) => {
   /**
    * Use toast context
    */
@@ -26,8 +26,10 @@ const TestComponent = () => {
           context.push({
             duration: 1000,
             component: (
-              <View style={{ backgroundColor: 'green', height: 50 }}>
+              <View style={{ backgroundColor: 'green' }}>
+                {props.position === 'top' && <SafeAreaView />}
                 <Text>TOAST {context.queue.length}</Text>
+                {props.position === 'bottom' && <SafeAreaView />}
               </View>
             ),
             dismissible: false,
@@ -43,8 +45,10 @@ const TestComponent = () => {
           context.push({
             duration: 1000,
             component: (
-              <View style={{ backgroundColor: 'green', height: 50 }}>
+              <View style={{ backgroundColor: 'green' }}>
+                {props.position === 'top' && <SafeAreaView />}
                 <Text>DISMISSABLE TOAST {context.queue.length}</Text>
+                {props.position === 'bottom' && <SafeAreaView />}
               </View>
             ),
             dismissible: true,
@@ -60,8 +64,10 @@ const TestComponent = () => {
           context.push({
             duration: 0,
             component: (
-              <View style={{ backgroundColor: 'green', height: 50 }}>
+              <View style={{ backgroundColor: 'green' }}>
+                {props.position === 'top' && <SafeAreaView />}
                 <Text>ONLY DISMISSABLE TOAST {context.queue.length}</Text>
+                {props.position === 'bottom' && <SafeAreaView />}
               </View>
             ),
             dismissible: true,
@@ -72,24 +78,15 @@ const TestComponent = () => {
   );
 };
 
-storiesOf('Hello', module)
+storiesOf('Toast', module)
+  // .addDecorator((getStory) => <View style={{ backgroundColor: 'red', flex: 1, width: '100%' }}>{getStory()}</View>)
   .add('Toast - bottom', () => (
     <ToastProvider position='bottom'>
-      <View style={{
-        flex: 1,
-        width: '100%',
-      }}>
-        <TestComponent />
-      </View>
+      <TestComponent position='bottom' />
     </ToastProvider>
   ))
   .add('Toast - top', () => (
     <ToastProvider position='top'>
-      <View style={{
-        flex: 1,
-        width: '100%',
-      }}>
-        <TestComponent />
-      </View>
+      <TestComponent position='top' />
     </ToastProvider>
   ));

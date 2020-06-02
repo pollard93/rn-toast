@@ -1,4 +1,4 @@
-import React, { useReducer, ReactNode } from 'react';
+import React, { useReducer, FC } from 'react';
 import { Toast } from '../Toast/Toast';
 import { ToastProps, ToastContext } from '../ToastContext/ToastContext';
 
@@ -31,7 +31,6 @@ const toastReducer = (queue: ToastProps[], action: ToastReducerAction) => {
 
 export interface ToastProviderProps {
   position: 'top' | 'bottom'; // default bottom
-  children?: ReactNode;
 }
 
 
@@ -39,7 +38,7 @@ export interface ToastProviderProps {
  * Provides ToastContext with initial values
  * Renders Toast component as child
  */
-const ToastProvider = (props: ToastProviderProps) => {
+const ToastProvider: FC<ToastProviderProps> = (props) => {
   const [queue, dispatch] = useReducer(toastReducer, []);
 
   return (
